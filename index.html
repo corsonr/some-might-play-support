@@ -16,6 +16,10 @@
   a { color: #148260; }
   hr { border: 0; border-top: 1px solid rgba(128,128,128,.25); margin: 3rem 0; }
   code { background: rgba(128,128,128,.15); padding: .1em .35em; border-radius: 4px; }
+  .contact { font: inherit; cursor: pointer; border: 0; border-radius: 999px;
+             background: #148260; color: #fff; padding: .6rem 1.3rem; }
+  .contact:hover { background: #106b4e; }
+  .contact:focus-visible { outline: 2px solid #148260; outline-offset: 3px; }
 </style>
 </head>
 <body>
@@ -25,8 +29,9 @@
 <p><a href="https://apps.apple.com/app/some-might-play/id6810251730">Some Might Play on the App Store</a></p>
 
 <h2>Getting help</h2>
-<p>Email <a href="mailto:remicorson@gmail.com">remicorson@gmail.com</a>. Please say which
-iPhone and which iOS version you are on, and what you were doing when it went wrong.</p>
+<p><button type="button" data-contact="Some Might Play — support" class="contact">Email support</button></p>
+<p>Please say which iPhone and which iOS version you are on, and what you were doing when it
+went wrong.</p>
 
 <h2>Common questions</h2>
 <p><strong>The tuner does not hear my guitar.</strong> Check that the app is allowed to use
@@ -50,8 +55,9 @@ is the purchase itself, which is handled by the App Store.</p>
 
 <div lang="fr">
 <h2>Obtenir de l'aide</h2>
-<p>Écrivez à <a href="mailto:remicorson@gmail.com">remicorson@gmail.com</a>. Précisez votre
-modèle d'iPhone, votre version d'iOS, et ce que vous faisiez au moment du problème.</p>
+<p><button type="button" data-contact="Some Might Play — assistance" class="contact">Écrire à l'assistance</button></p>
+<p>Précisez votre modèle d'iPhone, votre version d'iOS, et ce que vous faisiez au moment du
+problème.</p>
 
 <h2>Questions fréquentes</h2>
 <p><strong>L'accordeur n'entend pas ma guitare.</strong> Vérifiez que l'app a l'autorisation du
@@ -70,6 +76,24 @@ par l'App Store.</p>
 
 <hr>
 <p><a href="privacy.html">Privacy policy / Politique de confidentialité</a></p>
+
+
+<script>
+  // The address is assembled at click time rather than written into the page:
+  // a harvester reading the HTML finds nothing to take. It is obfuscation, not
+  // secrecy — anyone who clicks sees it — but it is what keeps a support page
+  // off the spam lists.
+  (function () {
+    var user = "remicorson", host = "gmail.com";
+    document.querySelectorAll("[data-contact]").forEach(function (button) {
+      button.addEventListener("click", function (event) {
+        event.preventDefault();
+        var subject = encodeURIComponent(button.getAttribute("data-contact"));
+        location.href = "mailto:" + user + "@" + host + "?subject=" + subject;
+      });
+    });
+  })();
+</script>
 
 </body>
 </html>
